@@ -7,6 +7,7 @@ from .models import Achievement, Cat, User
 from .serializers import AchievementSerializer, CatSerializer, UserSerializer
 from .permissions import OwnerOrReadOnly, ReadOnly
 from .throttling import WorkingHoursRateThrottle
+from .pagination import CatsPagination
 
 
 class CatViewSet(viewsets.ModelViewSet):
@@ -17,6 +18,7 @@ class CatViewSet(viewsets.ModelViewSet):
     # throttle_classes = (AnonRateThrottle,)
     throttle_classes = (WorkingHoursRateThrottle, ScopedRateThrottle)
     throttle_scope = "low_request"
+    pagination_class = CatsPagination
 
     def get_permissions(self):
         # Если в GET-запросе требуется получить информацию об объекте
